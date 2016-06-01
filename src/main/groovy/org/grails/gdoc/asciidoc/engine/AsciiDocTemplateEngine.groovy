@@ -19,9 +19,11 @@ class AsciiDocTemplateEngine extends TemplateEngine {
     Template createTemplate(Reader reader) throws CompilationFailedException, ClassNotFoundException, IOException {
         RenderContext context = new BaseRenderContext()
         RenderEngine engine = new AsciiDocEngine()
-        String renderedText = engine.render(reader , context)
+
+        def sw = new StringWriter()
+        String renderedText = engine.render(sw,reader.text, context)
 
         TemplateEngine templateEngine = new SimpleTemplateEngine();
-        return templateEngine.createTemplate(new StringReader(renderedText))
+        return templateEngine.createTemplate(new StringReader(sw.toString()))
     }
 }

@@ -11,9 +11,11 @@ import org.radeox.macro.parameter.MacroParameter
 class QuoteMacro extends LocalePreserved {
     @Override
     void execute(Writer writer, MacroParameter params) throws IllegalArgumentException, IOException {
-        writer.write """____
+        if(params.content != null) {
+            writer.write """____
 ${params.content}
 ____"""
+        }
     }
 
     @Override

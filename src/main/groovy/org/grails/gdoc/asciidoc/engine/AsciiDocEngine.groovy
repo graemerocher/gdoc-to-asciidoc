@@ -6,6 +6,7 @@ import org.grails.gdoc.asciidoc.engine.filters.CodeFilter
 import org.grails.gdoc.asciidoc.engine.filters.MacroFilter
 import org.grails.gdoc.asciidoc.engine.macros.CodeMacro
 import org.grails.gdoc.asciidoc.engine.macros.QuoteMacro
+import org.grails.gdoc.asciidoc.engine.macros.TableMacro
 import org.radeox.engine.BaseRenderEngine
 import org.radeox.filter.FilterPipe
 
@@ -23,6 +24,7 @@ class AsciiDocEngine extends BaseRenderEngine {
 
         def macroFilter = new MacroFilter()
         fp.addFilter(macroFilter)
+        macroFilter.macroRepository.put("table", new TableMacro())
         macroFilter.macroRepository.put("code", new CodeMacro())
         macroFilter.macroRepository.put("quote", new QuoteMacro())
         fp.addFilter(new CodeFilter())

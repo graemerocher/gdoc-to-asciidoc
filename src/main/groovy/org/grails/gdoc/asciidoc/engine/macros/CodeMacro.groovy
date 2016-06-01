@@ -11,15 +11,17 @@ import org.radeox.macro.parameter.MacroParameter
 class CodeMacro extends LocalePreserved{
     @Override
     void execute(Writer writer, MacroParameter params) throws IllegalArgumentException, IOException {
-        def lang = "groovy"
-        def paramsMap = params.getParams()
-        if(paramsMap.containsKey("0")) {
-            lang = paramsMap.get("0")
-        }
-        writer.write """[source,$lang]
+        if(params.content != null) {
+            def lang = "groovy"
+            def paramsMap = params.getParams()
+            if(paramsMap.containsKey("0")) {
+                lang = paramsMap.get("0")
+            }
+            writer.write """[source,$lang]
 ----
 ${params.content}
 ----"""
+        }
     }
 
     @Override
