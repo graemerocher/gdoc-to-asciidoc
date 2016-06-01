@@ -5,7 +5,9 @@ import groovy.transform.InheritConstructors
 import org.grails.gdoc.asciidoc.engine.filters.CodeFilter
 import org.grails.gdoc.asciidoc.engine.filters.MacroFilter
 import org.grails.gdoc.asciidoc.engine.macros.CodeMacro
+import org.grails.gdoc.asciidoc.engine.macros.QuoteMacro
 import org.radeox.engine.BaseRenderEngine
+import org.radeox.filter.FilterPipe
 
 /**
  * Created by graemerocher on 01/06/2016.
@@ -17,12 +19,12 @@ class AsciiDocEngine extends BaseRenderEngine {
 
     @Override
     protected void init() {
-        super.init()
-        fp.deactivateFilter("org.radeox.filter.MacroFilter")
+        fp = new FilterPipe(initialContext)
 
         def macroFilter = new MacroFilter()
         fp.addFilter(macroFilter)
         macroFilter.macroRepository.put("code", new CodeMacro())
+        macroFilter.macroRepository.put("quote", new QuoteMacro())
         fp.addFilter(new CodeFilter())
     }
 }
