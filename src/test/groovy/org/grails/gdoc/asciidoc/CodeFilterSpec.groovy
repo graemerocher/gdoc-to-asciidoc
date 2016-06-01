@@ -10,11 +10,11 @@ import spock.lang.Specification
  */
 class CodeFilterSpec extends Specification {
 
-    void "test radeox to ascii doc template engine"() {
+    void "Test that @..@ is handled as inline code"() {
         given:"A template engine"
         def engine = new AsciiDocTemplateEngine()
 
-        when:"A template is rendered"
+        when:"A template is rendered with code @..@ formatting"
 
         def sw = new StringWriter()
         engine.createTemplate('@def foo@').make().writeTo(sw)
