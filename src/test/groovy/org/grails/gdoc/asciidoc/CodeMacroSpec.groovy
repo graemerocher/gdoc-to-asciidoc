@@ -8,6 +8,27 @@ import spock.lang.Specification
  */
 class CodeMacroSpec extends Specification {
 
+    void "Test that {code} macro is used with a title specified"() {
+        given:"A template engine"
+        def engine = new AsciiDocTemplateEngine()
+
+        when:"A template is rendered with {code} formatting"
+
+        def sw = new StringWriter()
+        engine.createTemplate('''
+{code:title=Test.groovy}
+def foo = "bar"
+{code}
+'''.trim()).make().writeTo(sw)
+
+        then:"The output is correct"
+        sw.toString() == '''[source,groovy]
+.Test.groovy
+----
+def foo = "bar"
+----'''
+    }
+
     void "Test that {code} macro is used with a language specified"() {
         given:"A template engine"
         def engine = new AsciiDocTemplateEngine()
@@ -19,7 +40,7 @@ class CodeMacroSpec extends Specification {
 {code:java}
 def foo = "bar"
 {code}
-''').make().writeTo(sw)
+'''.trim()).make().writeTo(sw)
 
         then:"The output is correct"
         sw.toString() == '''[source,java]
@@ -39,7 +60,7 @@ def foo = "bar"
 {code}
 def foo = "bar"
 {code}
-''').make().writeTo(sw)
+'''.trim()).make().writeTo(sw)
 
         then:"The output is correct"
         sw.toString() == '''[source,groovy]

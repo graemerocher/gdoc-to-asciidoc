@@ -13,7 +13,7 @@ class QuoteMacro extends LocalePreserved {
     void execute(Writer writer, MacroParameter params) throws IllegalArgumentException, IOException {
         if(params.content != null) {
             writer.write """____
-${params.content}
+${params.content.trim()}
 ____"""
         }
     }

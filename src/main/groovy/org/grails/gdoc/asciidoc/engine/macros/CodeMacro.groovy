@@ -14,12 +14,19 @@ class CodeMacro extends LocalePreserved{
         if(params.content != null) {
             def lang = "groovy"
             def paramsMap = params.getParams()
-            if(paramsMap.containsKey("0")) {
+            if(!paramsMap.containsKey('title') && paramsMap.containsKey("0")) {
                 lang = paramsMap.get("0")
             }
-            writer.write """[source,$lang]
+            else if(paramsMap.containsKey("lang")) {
+                lang = paramsMap.get("lang")
+            }
+            writer.write("[source,$lang]")
+            if(params.get('title')) {
+                writer.write("\n.${params.get('title')}")
+            }
+            writer.write """
 ----
-${params.content}
+${params.content.trim()}
 ----"""
         }
     }

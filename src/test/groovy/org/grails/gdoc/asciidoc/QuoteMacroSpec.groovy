@@ -18,7 +18,7 @@ class QuoteMacroSpec extends Specification{
 {quote}
 Hello World
 {quote}
-''').make().writeTo(sw)
+'''.trim()).make().writeTo(sw)
 
         then:"The output is correct"
         sw.toString() == '''____
