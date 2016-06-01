@@ -24,7 +24,7 @@ class GdocToAsciiDocTask extends DefaultTask {
 
     @TaskAction
     void run() {
-        TocProcessor parser = new TocProcessor(version: project.version, destDir: destDir, resourcesDir: resourcesDir, srcDir: srcDir)
+        TocProcessor parser = new TocProcessor(version: project.version.toString(), destDir: destDir, resourcesDir: resourcesDir, srcDir: srcDir)
         parser.parse()
 
         //TODO: call the other guys task
