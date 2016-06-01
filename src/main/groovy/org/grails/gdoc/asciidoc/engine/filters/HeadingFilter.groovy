@@ -17,9 +17,10 @@ class HeadingFilter extends RegexTokenFilter {
     @Override
     void handleMatch(StringBuffer buffer, MatchResult result, FilterContext context) {
 
-        Integer level = result.group(1)
+        String level = result.group(1)
         String headerText = result.group(2)
 
-        buffer << '=' * level + ' ' + headerText
+        String newHeaderText = '=' * level.toInteger() + ' ' + headerText
+        buffer << newHeaderText
     }
 }
