@@ -5,7 +5,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
-import org.grails.gdoc.asciidoc.engine.TocProcessor
+import org.grails.gdoc.asciidoc.engine.toc.TocProcessor
 
 /**
  * Takes a source directory containing GDoc and outputs AsciiDoc to the target directory

@@ -1,4 +1,4 @@
-package org.grails.gdoc.asciidoc.engine
+package org.grails.gdoc.asciidoc.engine.toc
 
 import groovy.transform.ToString
 import org.yaml.snakeyaml.Yaml
@@ -58,9 +58,3 @@ class TocProcessor {
 
 }
 
-@ToString
-class Section {
-    int level
-    String filename
-    String title
-}
