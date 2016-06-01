@@ -5,6 +5,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.grails.gdoc.asciidoc.engine.TocProcessor
 
 /**
  * Takes a source directory containing GDoc and outputs AsciiDoc to the target directory
@@ -15,11 +16,17 @@ class GdocToAsciiDocTask extends DefaultTask {
     @InputDirectory
     File srcDir
 
+    @InputDirectory
+    File resourcesDir
+
     @OutputDirectory
     File destDir
 
     @TaskAction
     void run() {
-        // TODO
+        TocProcessor parser = new TocProcessor(version: project.version, destDir: destDir, resourcesDir: resourcesDir, srcDir: srcDir)
+        parser.parse()
+
+        //TODO: call the other guys task
     }
 }
