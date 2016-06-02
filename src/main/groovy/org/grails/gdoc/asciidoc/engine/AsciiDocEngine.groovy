@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 import groovy.transform.InheritConstructors
 import org.grails.gdoc.asciidoc.engine.filters.CodeFilter
 import org.grails.gdoc.asciidoc.engine.filters.HeadingFilter
+import org.grails.gdoc.asciidoc.engine.filters.LinkTestFilter
 import org.grails.gdoc.asciidoc.engine.filters.MacroFilter
 import org.grails.gdoc.asciidoc.engine.filters.TextileLinkFilter
 import org.grails.gdoc.asciidoc.engine.macros.CodeMacro
@@ -21,6 +22,21 @@ import org.radeox.filter.FilterPipe
 @InheritConstructors
 class AsciiDocEngine extends BaseRenderEngine {
 
+    Map<String, String> apiLinks = [
+            'org.springframework.boot': 'http://docs.spring.io/spring-boot/docs/current/api/',
+            'org.springframework':"http://docs.spring.io/spring/docs/current/javadoc-api/",
+            'org.hibernate':'http://docs.jboss.org/hibernate/orm/current/javadocs/',
+            'java.':'https://docs.oracle.com/javase/8/docs/api/',
+            'javax.':'https://docs.oracle.com/javaee/7/api/',
+            'groovy.':'http://docs.groovy-lang.org/docs/latest/html/api/',
+            'org.codehaus.groovy.':'http://docs.groovy-lang.org/docs/latest/html/api/',
+            'grails.gorm':'http://gorm.grails.org/latest/api/',
+            'grails.orm':'http://gorm.grails.org/latest/api/',
+            'org.grails.datastore':'http://gorm.grails.org/latest/api/',
+            'org.grails.orm':'http://gorm.grails.org/latest/api/',
+            'grails.':'http://docs.grails.org/latest/api/',
+            'org.grails.':'http://docs.grails.org/latest/api/'
+    ]
 
     @Override
     protected void init() {
@@ -36,5 +52,6 @@ class AsciiDocEngine extends BaseRenderEngine {
         fp.addFilter(new CodeFilter())
         fp.addFilter(new HeadingFilter())
         fp.addFilter(new TextileLinkFilter())
+        fp.addFilter(new LinkTestFilter(apiLinks))
     }
 }
