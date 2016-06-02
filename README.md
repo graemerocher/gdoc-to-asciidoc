@@ -1,7 +1,7 @@
 Grails GDoc to AsciiDoc Converter
 =================================
 
-This plugin will conveter Grails' GDoc format to AsciiDoc.
+This plugin will convert Grails' GDoc format to AsciiDoc.
 
 To use the plugin add it to your `build.gradle` build classpath dependencies:
 
