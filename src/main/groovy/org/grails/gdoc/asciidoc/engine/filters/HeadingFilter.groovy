@@ -1,5 +1,6 @@
 package org.grails.gdoc.asciidoc.engine.filters
 
+import groovy.transform.CompileStatic
 import org.radeox.filter.CacheFilter
 import org.radeox.filter.context.FilterContext
 import org.radeox.filter.regex.RegexTokenFilter
@@ -8,6 +9,7 @@ import org.radeox.regex.MatchResult
 /**
  * Created by ug on 01.06.16.
  */
+@CompileStatic
 class HeadingFilter extends RegexTokenFilter implements CacheFilter {
 
 

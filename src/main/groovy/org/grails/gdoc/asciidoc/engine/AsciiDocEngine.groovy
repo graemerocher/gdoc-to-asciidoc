@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 import groovy.transform.InheritConstructors
 import org.grails.gdoc.asciidoc.engine.filters.CodeFilter
 import org.grails.gdoc.asciidoc.engine.filters.HeadingFilter
+import org.grails.gdoc.asciidoc.engine.filters.ImageFilter
 import org.grails.gdoc.asciidoc.engine.filters.LinkTestFilter
 import org.grails.gdoc.asciidoc.engine.filters.MacroFilter
 import org.grails.gdoc.asciidoc.engine.filters.TextileLinkFilter
@@ -64,5 +65,6 @@ class AsciiDocEngine extends BaseRenderEngine {
         fp.addFilter(new CodeFilter())
         fp.addFilter(new HeadingFilter())
         fp.addFilter(new TextileLinkFilter())
+        fp.addFilter(new ImageFilter())
     }
 }

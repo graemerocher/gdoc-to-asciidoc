@@ -43,7 +43,8 @@ class TocProcessor {
         if(authors) {
             output.append(authors)
         }
-        output.append(":version: ${version}").append(newLine).append(newLine)
+        output.append(":version: ${version}").append(newLine)
+        output.append(":imagesdir: ./images").append(newLine).append(newLine)
         sections.each { Section section ->
             output.append("[[${section.id}]]").append(newLine)
             output.append("="*(section.level+1)).append(" ${section.title}").append(newLine).append(newLine)

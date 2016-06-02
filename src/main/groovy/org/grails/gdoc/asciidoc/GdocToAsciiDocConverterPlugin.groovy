@@ -15,6 +15,6 @@ class GdocToAsciiDocConverterPlugin implements Plugin<Project>{
         def gdocToAsciiDocTask = project.tasks.create('gdoc2asciidoc', GdocToAsciiDocTask)
 
         gdocToAsciiDocTask.srcDir = project.file("src/docs")
-        gdocToAsciiDocTask.destDir = new File(project.buildDir, "asciidoc")
+        gdocToAsciiDocTask.destDir = project.file("src/docs/asciidoc")
     }
 }

@@ -1,5 +1,6 @@
 package org.grails.gdoc.asciidoc.engine.filters
 
+import groovy.transform.CompileStatic
 import org.radeox.filter.context.FilterContext
 import org.radeox.filter.regex.RegexTokenFilter
 import org.radeox.regex.MatchResult
@@ -7,6 +8,7 @@ import org.radeox.regex.MatchResult
 /**
  * Created by graemerocher on 01/06/2016.
  */
+@CompileStatic
 class CodeFilter extends RegexTokenFilter {
     CodeFilter() {
         super(/@([^\n]*?)@/);

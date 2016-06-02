@@ -34,6 +34,7 @@ class GDocToAsciiDocConverter {
         String srcPath = srcDir.canonicalPath
         String guidePath = new File(srcDir, "guide").canonicalPath
         String refPath = new File(srcDir, "ref").canonicalPath
+
         boolean hasRef = false
         for(file in gdocFiles) {
 

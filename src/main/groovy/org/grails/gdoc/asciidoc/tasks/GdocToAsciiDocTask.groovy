@@ -1,7 +1,9 @@
 package org.grails.gdoc.asciidoc.tasks
 
 import groovy.transform.CompileStatic
+import org.gradle.api.Action
 import org.gradle.api.DefaultTask
+import org.gradle.api.file.CopySpec
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
@@ -42,5 +44,39 @@ class GdocToAsciiDocTask extends DefaultTask {
         converter.setResourcesDir(resourcesDir)
         converter.setDestDir(destDir)
         converter.setGdocFiles(allFiles)
+
+        def imagesDir = new File(resourcesDir, "img")
+        if(imagesDir.exists()) {
+
+            project.copy(new Action<CopySpec>() {
+                @Override
+                void execute(CopySpec copySpec) {
+
+                    copySpec.from(imagesDir)
+                            .into(new File(destDir, "images"))
+                }
+            })
+        }
+
+        println "GDocs successfully converted. Now add the following to build.gradle"
+        println """
+plugins {
+    id 'org.asciidoctor.convert' version '1.5.3'
+}
+
+asciidoctor {
+    resources {
+        from('src/docs/images')
+        into "./images"
+    }
+
+    attributes 'experimental'  : 'true',
+               'compat-mode'   : 'true',
+               'toc'           : 'left',
+               'icons'         : 'font',
+               'version'       : project.version,
+               'sourcedir'     : 'src/main/groovy'
+}
+"""
     }
 }
