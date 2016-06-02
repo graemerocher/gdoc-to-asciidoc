@@ -7,6 +7,7 @@ import org.grails.gdoc.asciidoc.engine.filters.HeadingFilter
 import org.grails.gdoc.asciidoc.engine.filters.MacroFilter
 import org.grails.gdoc.asciidoc.engine.filters.TextileLinkFilter
 import org.grails.gdoc.asciidoc.engine.macros.CodeMacro
+import org.grails.gdoc.asciidoc.engine.macros.NoteMacro
 import org.grails.gdoc.asciidoc.engine.macros.QuoteMacro
 import org.grails.gdoc.asciidoc.engine.macros.TableMacro
 import org.grails.gdoc.asciidoc.engine.macros.WarningMacro
@@ -29,6 +30,7 @@ class AsciiDocEngine extends BaseRenderEngine {
         fp.addFilter(macroFilter)
         macroFilter.macroRepository.put("table", new TableMacro())
         macroFilter.macroRepository.put("code", new CodeMacro())
+        macroFilter.macroRepository.put("note", new NoteMacro())
         macroFilter.macroRepository.put("quote", new QuoteMacro())
         macroFilter.macroRepository.put("warning", new WarningMacro())
         fp.addFilter(new CodeFilter())
