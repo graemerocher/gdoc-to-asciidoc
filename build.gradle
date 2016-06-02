@@ -53,8 +53,8 @@ bintray {
     publish = true
     pkg {
         repo = "grails-core"
-        userOrg = "grails"
-        name = "GDoc to Asciidoc Converter"
+        userOrg = project.hasProperty('userOrg') ? project.userOrg : 'grails'
+        name = "gdoc-to-asciidoc"
         desc = "Converts Grails' GDoc format to AsciiDoc"
         websiteUrl = "https://github.com/graemerocher/gdoc-to-asciidoc"
         issueTrackerUrl = "https://github.com/graemerocher/gdoc-to-asciidoc/issues"
