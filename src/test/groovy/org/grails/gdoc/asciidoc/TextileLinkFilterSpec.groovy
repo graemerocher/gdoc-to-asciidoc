@@ -4,33 +4,22 @@ import org.grails.gdoc.asciidoc.engine.AsciiDocTemplateEngine
 import spock.lang.Specification
 
 /**
- * Created by graemerocher on 02/06/2016.
+ * Created by ug on 01.06.16.
  */
 class TextileLinkFilterSpec extends Specification {
 
-    void "Test absolute textile links are converted to asciidoc links"() {
+    void "Test if links are formatted to asciidoc links"() {
+
         given:"A template engine"
         def engine = new AsciiDocTemplateEngine()
 
-        when:"A template with a text link"
+        when:"A template is rendered with a hyperlink"
 
         def sw = new StringWriter()
-        engine.createTemplate('My "Foo":http://foo.com Link').make().writeTo(sw)
+        engine.createTemplate('"gr8conf.eu":http://gr8conf.eu/#/ ').make().writeTo(sw)
 
-        then:"The output is correct"
-        sw.toString() == 'My http://foo.com[Foo] Link'
-    }
+        then:"It's a correctly converted hyperlink"
+        sw.toString() == 'http://gr8conf.eu/#/[gr8conf.eu] '
 
-    void "Test relative textile links are converted to asciidoc links"() {
-        given:"A template engine"
-        def engine = new AsciiDocTemplateEngine()
-
-        when:"A template with a text link"
-
-        def sw = new StringWriter()
-        engine.createTemplate('My "Foo":index.html Link').make().writeTo(sw)
-
-        then:"The output is correct"
-        sw.toString() == 'My link:index.html[Foo] Link'
     }
 }

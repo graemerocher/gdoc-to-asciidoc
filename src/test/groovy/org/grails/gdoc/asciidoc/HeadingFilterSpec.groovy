@@ -1,8 +1,6 @@
 package org.grails.gdoc.asciidoc
 
-import org.grails.gdoc.asciidoc.engine.AsciiDocEngine
 import org.grails.gdoc.asciidoc.engine.AsciiDocTemplateEngine
-import org.radeox.example.RadeoxTemplateEngine
 import spock.lang.Specification
 
 /**

@@ -6,25 +6,23 @@ import org.radeox.filter.regex.RegexTokenFilter
 import org.radeox.regex.MatchResult
 
 /**
- * Created by graemerocher on 02/06/2016.
+ * Created by ug on 02.06.16.
  */
 @CompileStatic
 class TextileLinkFilter extends RegexTokenFilter {
+
     TextileLinkFilter() {
-        super(/"([^"]+?)":(\S+?)(\s)/);
+
+        super(/("([^"]+?)"|\[([^\[]+?)\]):(\S+?)(\s)/)
     }
 
+    @Override
     void handleMatch(StringBuffer buffer, MatchResult result, FilterContext context) {
-        def text = result.group(1)
-        def link = result.group(2)
-        def space = result.group(3)
 
+        String label = result.group(2)
+        if ( label == null ) label = result.group(3)
+        String link = result.group(4)
 
-        if (link.startsWith("http://") || link.startsWith("https://")) {
-            buffer << "${link}[$text]$space"
-        }
-        else {
-            buffer << "link:$link[$text]$space"
-        }
+        buffer << link + "[$label] "
     }
 }

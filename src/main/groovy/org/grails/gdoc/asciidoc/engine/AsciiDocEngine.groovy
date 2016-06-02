@@ -64,6 +64,5 @@ class AsciiDocEngine extends BaseRenderEngine {
         fp.addFilter(new CodeFilter())
         fp.addFilter(new HeadingFilter())
         fp.addFilter(new TextileLinkFilter())
-
     }
 }
