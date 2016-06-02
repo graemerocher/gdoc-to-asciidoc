@@ -30,6 +30,6 @@ class HeadingFilter extends RegexTokenFilter implements CacheFilter {
         }
         def levelNumber = level.toInteger()
         String newHeaderText = '=' * levelNumber + ' ' + headerText
-        buffer << newHeaderText
+        buffer << System.getProperty("line.separator") << newHeaderText << System.getProperty("line.separator")
     }
 }

@@ -1,3 +1,7 @@
+plugins {
+    id "com.jfrog.bintray" version "1.6"
+}
+
 apply plugin:"groovy"
 apply plugin:"maven-publish"
 
@@ -6,6 +10,9 @@ repositories {
 		url "https://repo.grails.org/grails/core"
 	}
 }
+
+group "org.grails"
+version "1.0.0-SNAPSHOT"
 
 dependencies {
 	compile gradleApi()
@@ -16,4 +23,55 @@ dependencies {
 	testCompile "org.spockframework:spock-core:1.0-groovy-2.4", {
 		exclude module:"groovy-all"
 	}
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type:Jar) {
+    classifier = 'javadoc'
+    from groovydoc.outputs
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+}
+
+bintray {
+    user = System.getenv("BINTRAY_USER") ?: project.hasProperty("bintrayUser") ? project.bintrayUser : ''
+    key = System.getenv("BINTRAY_KEY") ?: project.hasProperty("bintrayKey") ? project.bintrayKey : ''
+    publications = ['maven']
+    publish = true
+    pkg {
+        repo = project.hasProperty('repo') ? project.repo : 'grails-core'
+        userOrg = project.hasProperty('userOrg') ? project.userOrg : 'grails'
+        name = "GDoc to Asciidoc Converter"
+        desc = "Converts Grails' GDoc format to AsciiDoc"
+        websiteUrl = "https://github.com/graemerocher/gdoc-to-asciidoc"
+        issueTrackerUrl = "https://github.com/graemerocher/gdoc-to-asciidoc/issues"
+        vcsUrl = "git@github.com:graemerocher/gdoc-to-asciidoc.git"
+        licenses = ['Apache-2.0']
+        publicDownloadNumbers = true
+        version {
+            name = project.version
+            gpg {
+                sign = true
+                passphrase = System.getenv("SIGNING_PASSPHRASE") ?: project.hasProperty("signingPassphrase") ? project.signingPassphrase : ''
+            }
+            mavenCentralSync {
+                sync = true
+                user = System.getenv("SONATYPE_USERNAME") ?: project.hasProperty("sonatypeOssUsername") ? project.sonatypeOssUsername : ''
+                password = System.getenv("SONATYPE_PASSWORD") ?: project.hasProperty("sonatypeOssPassword") ? project.sonatypeOssPassword : ''
+            }
+        }
+    }
 }

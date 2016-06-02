@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 import org.gradle.api.Action
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.CopySpec
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
@@ -27,6 +28,9 @@ class GdocToAsciiDocTask extends DefaultTask {
     @OutputDirectory
     File destDir
 
+    @Input
+    Map<String, String> apiLinks = [:]
+
     @TaskAction
     void run() {
 
@@ -35,7 +39,7 @@ class GdocToAsciiDocTask extends DefaultTask {
                                 .files
 
 
-        GDocToAsciiDocConverter converter = new GDocToAsciiDocConverter(project.version.toString())
+        GDocToAsciiDocConverter converter = new GDocToAsciiDocConverter(project.version.toString(), apiLinks)
 
         converter.setSrcDir(srcDir)
         if(resourcesDir == null) {
@@ -44,6 +48,7 @@ class GdocToAsciiDocTask extends DefaultTask {
         converter.setResourcesDir(resourcesDir)
         converter.setDestDir(destDir)
         converter.setGdocFiles(allFiles)
+        converter.execute()
 
         def imagesDir = new File(resourcesDir, "img")
         if(imagesDir.exists()) {
@@ -58,7 +63,7 @@ class GdocToAsciiDocTask extends DefaultTask {
             })
         }
 
-        println "GDocs successfully converted. Now add the following to build.gradle"
+        println "GDocs successfully converted to ${destDir}. Now add the following to build.gradle"
         println """
 plugins {
     id 'org.asciidoctor.convert' version '1.5.3'
@@ -77,6 +82,14 @@ asciidoctor {
                'version'       : project.version,
                'sourcedir'     : 'src/main/groovy'
 }
+
+task apiDocs(type: Copy) {
+    from groovydoc.outputs.files
+    into file("\${buildDir}/asciidoc/html5/api")
+}
+
+asciidoctor.dependsOn(apiDocs)
+
 """
     }
 }
