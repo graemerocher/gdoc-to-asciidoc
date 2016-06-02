@@ -2,6 +2,7 @@ package org.grails.gdoc.asciidoc.engine
 
 import groovy.transform.CompileStatic
 import groovy.transform.InheritConstructors
+import org.grails.gdoc.asciidoc.engine.filters.BlockQuoteFilter
 import org.grails.gdoc.asciidoc.engine.filters.CodeFilter
 import org.grails.gdoc.asciidoc.engine.filters.HeadingFilter
 import org.grails.gdoc.asciidoc.engine.filters.ImageFilter
@@ -68,5 +69,6 @@ class AsciiDocEngine extends BaseRenderEngine {
         fp.addFilter(new HeadingFilter())
         fp.addFilter(new TextileLinkFilter())
         fp.addFilter(new ImageFilter())
+        fp.addFilter(new BlockQuoteFilter())
     }
 }
