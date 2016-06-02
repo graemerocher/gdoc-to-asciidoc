@@ -13,10 +13,8 @@ class ImageFilter extends RegexTokenFilter {
     ImageFilter() {
         super(/!([^\n<>=]*?\.(jpg|png|gif))!/);
     }
-
     void handleMatch(StringBuffer buffer, MatchResult result, FilterContext context) {
-        def img = result.group(1)
-        buffer << "image::${img}[]"
+        def text = result.group(1)
+        buffer << "image::${text}[]"
     }
 }
-
