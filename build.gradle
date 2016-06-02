@@ -52,8 +52,8 @@ bintray {
     publications = ['maven']
     publish = true
     pkg {
-        repo = project.hasProperty('repo') ? project.repo : 'grails-core'
-        userOrg = project.hasProperty('userOrg') ? project.userOrg : 'grails'
+        repo = "grails-core"
+        userOrg = "grails"
         name = "GDoc to Asciidoc Converter"
         desc = "Converts Grails' GDoc format to AsciiDoc"
         websiteUrl = "https://github.com/graemerocher/gdoc-to-asciidoc"
@@ -63,15 +63,6 @@ bintray {
         publicDownloadNumbers = true
         version {
             name = project.version
-            gpg {
-                sign = true
-                passphrase = System.getenv("SIGNING_PASSPHRASE") ?: project.hasProperty("signingPassphrase") ? project.signingPassphrase : ''
-            }
-            mavenCentralSync {
-                sync = true
-                user = System.getenv("SONATYPE_USERNAME") ?: project.hasProperty("sonatypeOssUsername") ? project.sonatypeOssUsername : ''
-                password = System.getenv("SONATYPE_PASSWORD") ?: project.hasProperty("sonatypeOssPassword") ? project.sonatypeOssPassword : ''
-            }
         }
     }
 }
