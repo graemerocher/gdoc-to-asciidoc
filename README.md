@@ -11,7 +11,7 @@ buildscript {
         maven { url "https://repo.grails.org/grails/core" }
     }
     dependencies {
-        classpath "org.grails:gdoc-to-asciidoc:1.0.0"
+        classpath "org.grails:gdoc-to-asciidoc:1.0.1"
     }
 }
 ```
