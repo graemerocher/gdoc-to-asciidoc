@@ -14,6 +14,7 @@ import org.grails.gdoc.asciidoc.engine.macros.QuoteMacro
 import org.grails.gdoc.asciidoc.engine.macros.TableMacro
 import org.grails.gdoc.asciidoc.engine.macros.WarningMacro
 import org.radeox.engine.BaseRenderEngine
+import org.radeox.filter.EscapeFilter
 import org.radeox.filter.FilterPipe
 
 /**
@@ -62,6 +63,7 @@ class AsciiDocEngine extends BaseRenderEngine {
         macroFilter.macroRepository.put("note", new NoteMacro())
         macroFilter.macroRepository.put("quote", new QuoteMacro())
         macroFilter.macroRepository.put("warning", new WarningMacro())
+//        fp.addFilter(new EscapeFilter())
         fp.addFilter(new CodeFilter())
         fp.addFilter(new HeadingFilter())
         fp.addFilter(new TextileLinkFilter())

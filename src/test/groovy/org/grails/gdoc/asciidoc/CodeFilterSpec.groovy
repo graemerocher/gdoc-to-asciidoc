@@ -22,4 +22,17 @@ class CodeFilterSpec extends Specification {
         then:"The output is correct"
         sw.toString() == '`def foo`'
     }
+
+    void "Test escape @ in annotations"() {
+        given:"A template engine"
+        def engine = new AsciiDocTemplateEngine()
+
+        when:"A template is rendered with code @..@ formatting"
+
+        def sw = new StringWriter()
+        engine.createTemplate('The @Cache annotation').make().writeTo(sw)
+
+        then:"The output is correct"
+        sw.toString() == 'The @Cache annotation'
+    }
 }
