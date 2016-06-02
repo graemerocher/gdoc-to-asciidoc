@@ -17,18 +17,19 @@ class GDocToAsciiDocConverter {
     Collection<File> gdocFiles = []
 
     final String version
+    final Map<String, String> apiLinks
 
-    GDocToAsciiDocConverter(String version) {
+    GDocToAsciiDocConverter(String version, Map<String, String> apiLinks = [:]) {
         this.version = version
+        this.apiLinks = apiLinks
     }
 
     void execute() {
         destDir.mkdirs()
         TocProcessor tocProcessor = new TocProcessor(version: version, resourcesDir: resourcesDir, srcDir: srcDir, destDir: destDir)
         tocProcessor.parse()
-        TemplateEngine templateEngine = new AsciiDocTemplateEngine()
+        TemplateEngine templateEngine = new AsciiDocTemplateEngine(apiLinks)
         String guidePath = new File(srcDir, "guide").canonicalPath
-//        String destPath = destDir.canonicalPath
 
         for(file in gdocFiles) {
 

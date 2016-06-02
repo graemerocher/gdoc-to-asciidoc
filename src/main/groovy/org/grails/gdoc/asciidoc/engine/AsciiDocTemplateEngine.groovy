@@ -15,10 +15,17 @@ import org.radeox.engine.context.BaseRenderContext
  */
 @CompileStatic
 class AsciiDocTemplateEngine extends TemplateEngine {
+
+    final Map<String, String> apiLinks
+
+    AsciiDocTemplateEngine(Map<String, String> apiLinks = [:]) {
+        this.apiLinks = apiLinks
+    }
+
     @Override
     Template createTemplate(Reader reader) throws CompilationFailedException, ClassNotFoundException, IOException {
         RenderContext context = new BaseRenderContext()
-        RenderEngine engine = new AsciiDocEngine()
+        RenderEngine engine = new AsciiDocEngine(apiLinks)
 
         return new Template() {
             @Override

@@ -22,21 +22,32 @@ import org.radeox.filter.FilterPipe
 @InheritConstructors
 class AsciiDocEngine extends BaseRenderEngine {
 
-    Map<String, String> apiLinks = [
+    public static final LinkedHashMap<String, String> DEFAULT_API_LINKS = [
             'org.springframework.boot': 'http://docs.spring.io/spring-boot/docs/current/api/',
-            'org.springframework':"http://docs.spring.io/spring/docs/current/javadoc-api/",
-            'org.hibernate':'http://docs.jboss.org/hibernate/orm/current/javadocs/',
-            'java.':'https://docs.oracle.com/javase/8/docs/api/',
-            'javax.':'https://docs.oracle.com/javaee/7/api/',
-            'groovy.':'http://docs.groovy-lang.org/docs/latest/html/api/',
-            'org.codehaus.groovy.':'http://docs.groovy-lang.org/docs/latest/html/api/',
-            'grails.gorm':'http://gorm.grails.org/latest/api/',
-            'grails.orm':'http://gorm.grails.org/latest/api/',
-            'org.grails.datastore':'http://gorm.grails.org/latest/api/',
-            'org.grails.orm':'http://gorm.grails.org/latest/api/',
-            'grails.':'http://docs.grails.org/latest/api/',
-            'org.grails.':'http://docs.grails.org/latest/api/'
+            'org.springframework'     : "http://docs.spring.io/spring/docs/current/javadoc-api/",
+            'org.hibernate'           : 'http://docs.jboss.org/hibernate/orm/current/javadocs/',
+            'java.'                   : 'https://docs.oracle.com/javase/8/docs/api/',
+            'javax.'                  : 'https://docs.oracle.com/javaee/7/api/',
+            'groovy.'                 : 'http://docs.groovy-lang.org/docs/latest/html/api/',
+            'org.codehaus.groovy.'    : 'http://docs.groovy-lang.org/docs/latest/html/api/',
+            'grails.gorm'             : 'http://gorm.grails.org/latest/api/',
+            'grails.orm'              : 'http://gorm.grails.org/latest/api/',
+            'org.grails.datastore'    : 'http://gorm.grails.org/latest/api/',
+            'org.grails.orm'          : 'http://gorm.grails.org/latest/api/',
+            'grails.'                 : 'http://docs.grails.org/latest/api/',
+            'org.grails.'             : 'http://docs.grails.org/latest/api/'
     ]
+
+    final Map<String, String> apiLinks
+
+    AsciiDocEngine() {
+        this.apiLinks = [:]
+    }
+
+    AsciiDocEngine(Map<String, String> apiLinks ) {
+        this.apiLinks = new LinkedHashMap<>(apiLinks)
+        this.apiLinks.putAll(DEFAULT_API_LINKS)
+    }
 
     @Override
     protected void init() {

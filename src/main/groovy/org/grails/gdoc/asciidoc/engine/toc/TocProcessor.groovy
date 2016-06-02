@@ -51,14 +51,15 @@ class TocProcessor {
         new File("${destDir.absolutePath}/index.adoc").write(output.toString())
     }
 
-    void processSection(List<Section> sections, int currentLevel, String key, def value) {
+    void processSection(List<Section> sections, int currentLevel, String key, def value, String path = "") {
+        def filename = "${path}${key}"
         if (value instanceof String) {
-            sections << new Section(level: currentLevel, filename: key, title: value)
+            sections << new Section(level: currentLevel, filename: filename, title: value)
         } else {
-            Section section = new Section(level: currentLevel, filename: key, title: value.title)
+            Section section = new Section(level: currentLevel, filename: filename, title: value.title)
             sections << section
             value.findAll{k,v -> k != "title"}.each {k,v ->
-                processSection(sections, currentLevel+1, k, v)
+                processSection(sections, currentLevel+1, k, v, "${path}${key}/")
             }
         }
 
