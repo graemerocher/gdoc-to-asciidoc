@@ -19,7 +19,9 @@ class HeadingFilterSpec extends Specification {
         engine.createTemplate('h1. Very important section').make().writeTo(sw)
 
         then:"It's a correctly converted header"
-        sw.toString() == '= Very important section'
+        sw.toString() == '''
+= Very important section
+'''
     }
 
     void "Test that h2. is translated to two equals signs"() {
@@ -33,7 +35,9 @@ class HeadingFilterSpec extends Specification {
         engine.createTemplate('h2. Very important ' + 'sub' * 2 + 'section').make().writeTo(sw)
 
         then:"It's a correctly converted header"
-        sw.toString() == '== Very important ' + 'sub' * 2 + 'section'
+        sw.toString() == '''
+== Very important subsubsection
+'''
     }
 
     void "Test that h3. is translated to three equals signs"() {
@@ -47,7 +51,9 @@ class HeadingFilterSpec extends Specification {
         engine.createTemplate('h3. Very important ' + 'sub' * 3 + 'section').make().writeTo(sw)
 
         then:"It's a correctly converted header"
-        sw.toString() == '=== Very important ' + 'sub' * 3 + 'section'
+        sw.toString() == '''
+=== Very important subsubsubsection
+'''
     }
 
     void "Test that h4. is translated to four equals signs"() {
@@ -61,7 +67,9 @@ class HeadingFilterSpec extends Specification {
         engine.createTemplate('h4. Very important ' + 'sub' * 4 + 'section').make().writeTo(sw)
 
         then:"It's a correctly converted header"
-        sw.toString() == '==== Very important ' + 'sub' * 4 + 'section'
+        sw.toString() == '''
+==== Very important subsubsubsubsection
+'''
     }
 
     void "Test that h5. is translated to five equals signs"() {
@@ -75,6 +83,8 @@ class HeadingFilterSpec extends Specification {
         engine.createTemplate('h5. Very important ' + 'sub' * 5 + 'section').make().writeTo(sw)
 
         then:"It's a correctly converted header"
-        sw.toString() == '===== Very important ' + 'sub' * 5 + 'section'
+        sw.toString() == '''
+===== Very important subsubsubsubsubsection
+'''
     }
 }
