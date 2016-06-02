@@ -43,6 +43,7 @@ class AsciiDocEngine extends BaseRenderEngine {
         fp = new FilterPipe(initialContext)
 
         def macroFilter = new MacroFilter()
+        fp.addFilter(new LinkTestFilter(apiLinks))
         fp.addFilter(macroFilter)
         macroFilter.macroRepository.put("table", new TableMacro())
         macroFilter.macroRepository.put("code", new CodeMacro())
@@ -52,6 +53,6 @@ class AsciiDocEngine extends BaseRenderEngine {
         fp.addFilter(new CodeFilter())
         fp.addFilter(new HeadingFilter())
         fp.addFilter(new TextileLinkFilter())
-        fp.addFilter(new LinkTestFilter(apiLinks))
+
     }
 }

@@ -20,10 +20,18 @@ class AsciiDocTemplateEngine extends TemplateEngine {
         RenderContext context = new BaseRenderContext()
         RenderEngine engine = new AsciiDocEngine()
 
-        def sw = new StringWriter()
-        String renderedText = engine.render(sw,reader.text, context)
+        return new Template() {
+            @Override
+            Writable make(Map map = Collections.emptyMap()) {
+                return new Writable() {
 
-        TemplateEngine templateEngine = new SimpleTemplateEngine();
-        return templateEngine.createTemplate(new StringReader(sw.toString()))
+                    @Override
+                    Writer writeTo(Writer writer) throws IOException {
+                        engine.render(writer, reader.text, context)
+                        return writer
+                    }
+                }
+            }
+        }
     }
 }
