@@ -68,12 +68,12 @@ class GDocToAsciiDocConverter {
                     def dirName = dir.name
                     def category = dirName.toLowerCase().replace(' ', '-')
                     if(!dir.isHidden() && !dir.name.startsWith(".")) {
-                        output.append("[[ref-${category}]").append(newLine)
+                        output.append("[[ref-${category}]]").append(newLine)
                         output.append("=== ${dir.name}").append(newLine).append(newLine)
                         dir.eachFile(FileType.FILES) { File f ->
                             if(f.name.endsWith('.gdoc')) {
                                 def refName = f.name - '.gdoc'
-                                output.append("[[ref-${category}-${refName}]").append(newLine)
+                                output.append("[[ref-${category}-${refName}]]").append(newLine)
                                 output.append("==== ${refName}").append(newLine).append(newLine)
                                         .append("include::ref/${dirName}/${refName}.adoc[]").append(newLine).append(newLine)
 
