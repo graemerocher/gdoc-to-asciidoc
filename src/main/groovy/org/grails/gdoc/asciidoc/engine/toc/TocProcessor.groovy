@@ -44,6 +44,7 @@ class TocProcessor {
             output.append(authors)
         }
         output.append(":version: ${version}").append(newLine)
+        output.append(":source-highlighter: coderay").append(newLine)
         output.append(":imagesdir: ./images").append(newLine).append(newLine)
         sections.each { Section section ->
             output.append("[[${section.id}]]").append(newLine)
