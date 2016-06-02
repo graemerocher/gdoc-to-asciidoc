@@ -10,6 +10,6 @@ class BlockQuoteFilter extends RegexTokenFilter {
     }
 
     void handleMatch(StringBuffer buffer, MatchResult result, FilterContext context) {
-        buffer << "----\n${result.group(1)}\n----\n"
+        buffer << "----${result.group(1)}\n----\n\n"
     }
 }
