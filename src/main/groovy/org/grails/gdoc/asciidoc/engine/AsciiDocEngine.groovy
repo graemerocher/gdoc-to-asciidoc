@@ -5,6 +5,7 @@ import groovy.transform.InheritConstructors
 import org.grails.gdoc.asciidoc.engine.filters.CodeFilter
 import org.grails.gdoc.asciidoc.engine.filters.HeadingFilter
 import org.grails.gdoc.asciidoc.engine.filters.MacroFilter
+import org.grails.gdoc.asciidoc.engine.filters.TextileLinkFilter
 import org.grails.gdoc.asciidoc.engine.macros.CodeMacro
 import org.grails.gdoc.asciidoc.engine.macros.QuoteMacro
 import org.grails.gdoc.asciidoc.engine.macros.TableMacro
@@ -32,5 +33,6 @@ class AsciiDocEngine extends BaseRenderEngine {
         macroFilter.macroRepository.put("warning", new WarningMacro())
         fp.addFilter(new CodeFilter())
         fp.addFilter(new HeadingFilter())
+        fp.addFilter(new TextileLinkFilter())
     }
 }
