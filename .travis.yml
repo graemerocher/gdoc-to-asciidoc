@@ -1,0 +1,11 @@
+language: groovy
+sudo: false
+jdk:
+- openjdk7
+before_script:
+- rm -rf target
+script: ./travis-build.sh
+env:
+  global:
+  - GIT_NAME="Graeme Rocher"
+  - GIT_EMAIL="graeme.rocher@gmail.com"
