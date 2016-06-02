@@ -1,12 +1,10 @@
 package org.grails.gdoc.asciidoc.engine.filters
 
 import groovy.transform.CompileStatic
-import org.radeox.api.engine.WikiRenderEngine
+import org.grails.gdoc.asciidoc.engine.NameUtils
 import org.radeox.filter.context.FilterContext
 import org.radeox.filter.regex.RegexTokenFilter
 import org.radeox.regex.MatchResult
-import org.radeox.util.Encoder
-import org.radeox.util.StringBufferWriter
 
 /**
  * Created by graemerocher on 02/06/2016.
@@ -23,18 +21,16 @@ class LinkTestFilter extends RegexTokenFilter {
 
     void handleMatch(StringBuffer buffer, MatchResult result, FilterContext context) {
         String name = result.group(1)
-            String link = name
-            if(name.contains('|')) {
-                def tokens = name.split(/\|/)
-                name = tokens[0].trim()
-                link = tokens[1].trim()
-
-                if(link.contains('guide:')) {
-                    link = link.substring(6)
-                }
+        String link = name
+        if(name.contains('|')) {
+            def tokens = name.split(/\|/)
+            name = tokens[0].trim()
+            link = tokens[1].trim()
+            if(link.startsWith("guide:")) {
+                link = link.substring(6)
+                buffer << "<<$link,$name>>"
             }
-
-            if(link.startsWith("http://") || link.startsWith("http://")) {
+            else if(link.startsWith("http://") || link.startsWith("http://")) {
                 if(name == link) {
                     buffer << link
                 }
@@ -61,11 +57,21 @@ class LinkTestFilter extends RegexTokenFilter {
                     buffer << "<<$name>>"
                 }
                 else {
-                    buffer << "<<$link,$name>>"
+
+                    buffer << "<<ref-${NameUtils.getHyphenSeperatedName(link)}-$name,$name>>"
                 }
             }
-
+        }
+        else {
+            if(name ==~ /[a-zA-Z0-9\s]+/) {
+                buffer << "<<$name>>"
+            }
+            else {
+                buffer << "[$name]"
+            }
+        }
 
     }
+
 }
 

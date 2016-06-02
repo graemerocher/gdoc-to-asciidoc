@@ -23,22 +23,9 @@ class AsciiDocTemplateEngine extends TemplateEngine {
     }
 
     @Override
-    Template createTemplate(Reader reader) throws CompilationFailedException, ClassNotFoundException, IOException {
+    GDoc2AsciiDocTemplate createTemplate(Reader reader) throws CompilationFailedException, ClassNotFoundException, IOException {
         RenderContext context = new BaseRenderContext()
         RenderEngine engine = new AsciiDocEngine(apiLinks)
-
-        return new Template() {
-            @Override
-            Writable make(Map map = Collections.emptyMap()) {
-                return new Writable() {
-
-                    @Override
-                    Writer writeTo(Writer writer) throws IOException {
-                        engine.render(writer, reader.text, context)
-                        return writer
-                    }
-                }
-            }
-        }
+        return new GDoc2AsciiDocTemplate(engine, reader)
     }
 }

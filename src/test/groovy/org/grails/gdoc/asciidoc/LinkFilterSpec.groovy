@@ -41,10 +41,10 @@ class LinkFilterSpec extends Specification {
         when:"A template is rendered with an aliased [..] link "
 
         def sw = new StringWriter()
-        engine.createTemplate('My [Foo|foo-section] link').make().writeTo(sw)
+        engine.createTemplate('My [run-app|commandLine] link').make().writeTo(sw)
 
         then:"The output is correct"
-        sw.toString() == 'My <<foo-section,Foo>> link'
+        sw.toString() == 'My <<ref-command-line-run-app,run-app>> link'
     }
 
     void "Test links [] create internal cross references with alias and guide: prefix"() {

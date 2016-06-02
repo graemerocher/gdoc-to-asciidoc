@@ -10,6 +10,9 @@ import org.radeox.regex.MatchResult
  */
 class HeadingFilter extends RegexTokenFilter implements CacheFilter {
 
+
+    public static final String NORMALIZE_LEVEL = "normalizeLevel"
+
     HeadingFilter() {
         super(/(?m)^h(\d)\.\s+?(.*?)$/)
     }
@@ -19,8 +22,12 @@ class HeadingFilter extends RegexTokenFilter implements CacheFilter {
 
         String level = result.group(1)
         String headerText = result.group(2)
-
-        String newHeaderText = '=' * level.toInteger() + ' ' + headerText
+        def normalizedLevel = context.getRenderContext().getParameters().get(NORMALIZE_LEVEL)
+        if(normalizedLevel) {
+            level = normalizedLevel
+        }
+        def levelNumber = level.toInteger()
+        String newHeaderText = '=' * levelNumber + ' ' + headerText
         buffer << newHeaderText
     }
 }
